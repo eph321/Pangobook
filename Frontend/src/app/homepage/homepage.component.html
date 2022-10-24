@@ -1,0 +1,110 @@
+<div class="container">
+
+    <ul id="profil" class="sidenav">
+        <span *ngIf="pangolin">
+            <li>
+                <div class="user-view">
+                    <div class="background">
+                        <img class="responsive-img" src="/assets/bg-pangolin.jpg">
+                    </div>
+                    <img class="circle" src='/assets/{{pangolin.roles[0]}}.jpeg'>
+                    <span class="white-text name">{{pangolin.name}}</span>
+                    <span class="white-text email">{{pangolin.email}}</span>
+                </div>
+            </li>
+            <li>
+                <a class="sidenav-close" style="cursor: pointer" (click)="goToPangolin(pangolin.token)">
+                    <i class="material-icons">person</i>
+                    Votre profil
+                </a>
+            </li>
+            <li>
+                <a class="sidenav-close" style="cursor: pointer" (click)="goToEditPangolin(pangolin.token)">
+                    <i class="material-icons">edit</i>
+                    Editer votre profil
+                </a>
+            </li>
+            <li>
+                <div class="divider"></div>
+            </li>
+        </span>
+        <div class="center">
+        <a class="sidenav-close btn" style="margin: 5%" (click)="logout()">Se déconnecter</a>
+        </div>
+    </ul>
+    <a href="#" data-target="profil" class="sidenav-trigger right">
+        <i class="medium material-icons teal-text">account_circle</i>
+    </a>
+    <ul id="friend-list" class="sidenav">
+        <span *ngIf="pangolin">
+            <li>
+                <div class="user-view">
+                    <div class="background">
+                        <img class="responsive-img" src="/assets/bg-pangolin2.jpg">
+                    </div>
+                    <img class="circle" src="/assets/{{pangolin.roles[0]}}.jpeg">
+                    <span class="white-text name">{{pangolin.name}}</span>
+                    <span class="white-text email">{{pangolin.email}}</span>
+                </div>
+            </li>
+            <div class="divider"></div>
+            <h5 class="center">Vos amis</h5>
+            <ul class="collection">
+            <span *ngFor="let friend of friendList">
+                 <div class="row">
+                    <div class="hoverable col" style="width: 80%; cursor: pointer;">
+                        <a class="sidenav-close" (click)="goToPangolin(friend.token)" >
+                            <div class="valign-wrapper" style="width: 100%">   
+                                <img src="/assets/{{friend.roles[0]}}.jpeg" alt="avatar" class="circle responsive-img" style="width: 20%; margin-top: 3%;" />
+                                <p class="center black-text" style="width: 100%">
+                                    {{friend.name}}<br>
+                                    <span class="{{ friend.roles[0] | roleColor }}">{{friend.roles[0]}}</span>
+                                </p>  
+                            </div>         
+                        </a>
+                    </div>
+                    <div class="col valign-wrapper center" style="min-height: 75px; cursor: pointer">
+                    <a (click)="deleteFriend(friend.token)"><i class="material-icons teal-text">remove_circle</i></a>
+                    </div>
+                </div>    
+            </span>
+        </ul>
+        </span>
+    </ul>
+    <a href="#" data-target="friend-list" class="sidenav-trigger right">
+        <i class="medium material-icons teal-text">group</i>
+    </a>
+    <h3 *ngIf="pangolin">Accueil - {{pangolin.name}}</h3>
+    <div class="row">
+        <h5>Nos membres</h5>
+        <div *ngFor="let pangol of pangolinsList">
+            <div class="col s12 m4">
+                <div class="card sticky-action" style="padding: 2%">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator responsive-img" src="/assets/{{pangol.roles[0]}}.jpeg">
+                    </div>
+                    <div class="card-content" style="padding-bottom: 0;">
+                        <span class="card-title activator grey-text text-darken-4">
+                            {{pangol.name}}
+                            <i class="material-icons right">more_vert</i>
+                            <div class ="card-action center">
+                                <a class="waves-effect waves-light btn" style="margin: 2%" (click)="goToPangolin(pangol.token)">Voir profil</a>
+                                <a class="waves-effect waves-light btn" style="margin: 2%" (click)="addFriendFromList(pangol.token)">Ajouter</a>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">{{pangol.name}}<i
+                                class="material-icons right">close</i></span>
+                                <span>PV: {{pangol.hp}}</span>
+                        <p>Roles:</p>
+                        <p *ngFor="let role of pangol.roles" class="{{ role | roleColor }}">{{role}}</p>
+                        <div class="divider"></div>
+                        <p>Types:</p>
+                        <p *ngFor="let type of pangol.types">{{type}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

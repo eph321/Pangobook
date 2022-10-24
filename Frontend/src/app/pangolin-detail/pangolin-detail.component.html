@@ -1,0 +1,48 @@
+<div *ngIf="pangolin" class="row">
+    <div class="col s12 m8 offset-m2">
+        <h2 class="header center">{{ pangolin.name }}</h2>
+        <div class="card horizontal hoverable">
+            <div class="card-stacked">
+                <div class="card-content">
+                    <table class="bordered striped">
+                        <div class="card-image">
+                            <img src="/assets/{{pangolin.roles[0]}}.jpeg">
+                        </div>
+                        <tbody>
+                            <tr>
+                                <td>Nom</td>
+                                <td><strong>{{ pangolin.name }}</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td><strong>{{ pangolin.email }}</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Points de vie</td>
+                                <td><strong>{{ pangolin.hp }}</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Roles</td>
+                                <td>
+                                    <span *ngFor="let role of pangolin.roles" class="{{ role | roleColor }}">
+                                        <strong> {{ role }}</strong>
+                                     </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Type</td>                    
+                                    <span *ngFor="let type of pangolin.types">
+                                    <td><strong> {{ type }}</strong></td>
+                                    </span>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-action">
+                    <a (click)="goToHomepage()">Retour</a>
+                    <a *ngIf="isProfilePage" (click)="goToEditPangolin(pangolin)">Editer</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
